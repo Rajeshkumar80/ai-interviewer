@@ -1,0 +1,20 @@
+Flask==2.3.3
+flask-cors==4.0.0
+pymongo==4.5.0
+flask-jwt-extended==4.5.2
+python-dotenv==0.19.0
+werkzeug==2.3.7
+google-generativeai==0.3.2
+python-dateutil==2.8.2
+# Legacy/Unused potential dependencies kept for safety but cleaned
+# fastapi==0.68.0
+# uvicorn==0.15.0
+# motor==2.5.0
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.5
+pydantic==1.10.12
+aiofiles==0.7.0
+google-auth-oauthlib==1.0.0
+google-auth-httplib2==0.1.0
+google-api-python-client==2.95.0

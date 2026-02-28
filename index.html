@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptitude Test Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Aptitude Test Application</h1>
+            <p>Test your skills with 10 random questions from our pool of 200+</p>
+        </header>
+
+        <main>
+            <!-- Welcome Screen -->
+            <div id="welcome-screen" class="screen active">
+                <div class="welcome-content">
+                    <h2>Welcome to Aptitude Test</h2>
+                    <p>You will be presented with 10 random questions covering various topics:</p>
+                    <ul>
+                        <li>Mathematics</li>
+                        <li>Logical Reasoning</li>
+                        <li>Verbal Ability</li>
+                        <li>General Knowledge</li>
+                    </ul>
+                    <p>Each question has 4 options. Choose the correct answer and submit when ready.</p>
+                    <button id="start-test" class="btn btn-primary">Start Test</button>
+                </div>
+            </div>
+
+            <!-- Test Screen -->
+            <div id="test-screen" class="screen">
+                <div class="test-header">
+                    <div class="progress-info">
+                        <span id="question-counter">Question 1 of 10</span>
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="timer">
+                        <span id="time-display">00:00</span>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div id="question-text" class="question-text"></div>
+                    <div id="options-container" class="options-container"></div>
+                </div>
+
+                <div class="test-controls">
+                    <button id="prev-question" class="btn btn-secondary" disabled>Previous</button>
+                    <button id="clear-selection" class="btn btn-secondary">Clear Selection</button>
+                    <button id="next-question" class="btn btn-primary">Next</button>
+                    <button id="submit-test" class="btn btn-success" style="display: none;">Submit Test</button>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="results-screen" class="screen">
+                <div class="results-content">
+                    <h2>Test Results</h2>
+                    <div class="score-summary">
+                        <div class="score-circle">
+                            <span id="score-percentage">0%</span>
+                        </div>
+                        <div class="score-details">
+                            <p><strong>Total Questions:</strong> <span id="total-questions">10</span></p>
+                            <p><strong>Correct Answers:</strong> <span id="correct-answers">0</span></p>
+                            <p><strong>Wrong Answers:</strong> <span id="wrong-answers">0</span></p>
+                            <p><strong>Time Taken:</strong> <span id="time-taken">00:00</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="performance-analysis">
+                        <h3>Performance Analysis</h3>
+                        <div id="category-performance"></div>
+                    </div>
+
+                    <div class="answer-review">
+                        <h3>Answer Review</h3>
+                        <div id="answer-review-container"></div>
+                    </div>
+
+                    <div class="result-actions">
+                        <button id="retake-test" class="btn btn-primary">Retake Test</button>
+                        <button id="new-test" class="btn btn-secondary">New Test</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

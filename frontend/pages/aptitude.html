@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aptitude Test | AI Interviewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/theme.css" />
+  <link rel="stylesheet" href="../assets/css/layout.css" />
+  <style>
+    /* Additional styles for aptitude page */
+    body {
+      padding-top: 70px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Start Screen */
+    .start-screen {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .start-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--color-text-primary);
+    }
+
+    .start-description {
+      font-size: 1.1rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .test-info {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+    }
+
+    .info-icon {
+      font-size: 1.2rem;
+    }
+
+    .btn-large {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+    }
+
+    .test-container {
+      background: var(--color-bg-glass);
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .test-header {
+      background: var(--gradient-primary);
+      color: var(--color-text-inverse);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .test-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .test-timer {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .test-timer.warning {
+      background: var(--color-warning);
+      color: var(--color-text-inverse);
+    }
+
+    .test-timer.danger {
+      background: var(--color-danger);
+      color: var(--color-text-inverse);
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .test-body {
+      padding: 2rem;
+      background: var(--color-bg-primary);
+    }
+
+    .question-container {
+      margin-bottom: 2rem;
+    }
+
+    .question-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .question-text {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      color: var(--color-text-primary);
+    }
+
+    .options-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .option {
+      background: var(--color-bg-secondary);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      transition: var(--transition-base);
+      text-align: left;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--color-text-primary);
+    }
+
+    .option:hover {
+      border-color: var(--color-primary);
+      background: rgba(97, 33, 15, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .option.selected {
+      background: rgba(97, 33, 15, 0.08);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+
+    .option.correct {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: var(--color-success);
+      color: var(--color-success);
+    }
+
+    .option.incorrect {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: var(--color-danger);
+      color: var(--color-danger);
+      text-decoration: line-through;
+    }
+
+    .test-footer {
+      display: flex !important;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      border-top: 2px solid var(--color-border);
+      background: var(--color-bg-primary);
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: var(--color-text-inverse);
+      border: 2px solid transparent;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-outline {
+      background: var(--color-bg-glass);
+      border: 2px solid var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .btn-outline:hover:not(:disabled) {
+      background: rgba(var(--color-primary-rgb, 99, 102, 241), 0.1);
+    }
+
+    .progress-container {
+      margin: 1.5rem 0;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: var(--color-bg-tertiary);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress {
+      height: 100%;
+      background: var(--gradient-primary);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    /* Results Page */
+    .results-container {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .score-card {
+      background: var(--color-bg-glass);
+      border-radius: var(--radius-2xl);
+      padding: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .score {
+      font-size: 3rem;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 1rem 0;
+    }
+
+    .accuracy {
+      font-size: 1.2rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: var(--color-bg-glass);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0.5rem 0;
+    }
+
+    .stat-label {
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .answers-section {
+      margin-top: 2rem;
+    }
+
+    .answer-card {
+      background: var(--color-bg-glass);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .answer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    .question-number {
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .answer-status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .correct-answer .answer-status {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--color-success);
+    }
+
+    .incorrect-answer .answer-status {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--color-danger);
+    }
+
+    .answer-details {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--color-border);
+    }
+
+    .explanation {
+      background: var(--color-bg-secondary);
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--color-text-primary);
+    }
+
+    .explanation-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--color-text-primary);
+    }
+
+    /* Loading State */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 300px;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid var(--color-bg-tertiary);
+      border-radius: 50%;
+      border-top-color: var(--color-primary);
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .test-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .test-body {
+        padding: 1.5rem 1rem;
+      }
+
+      .test-footer {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.3s ease forwards;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Navigation -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation" id="main-navbar">
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle sidebar"
+      aria-expanded="false">☰</button>
+    <a href="home.html" class="navbar-brand">
+      <div class="brand-icon">🎯</div>
+      <span>AI Interviewer</span>
+    </a>
+    <ul class="navbar-nav" role="list">
+      <li class="nav-item"><a href="home.html" class="nav-link"><span>🏠</span><span>Home</span></a></li>
+      <li class="nav-item"><a href="interview.html" class="nav-link"><span>🎤</span><span>Interview</span></a></li>
+      <li class="nav-item"><a href="aptitude.html" class="nav-link active"
+          aria-current="page"><span>🧮</span><span>Aptitude</span></a></li>
+      <li class="nav-item"><a href="analytics.html" class="nav-link"><span>📊</span><span>Analytics</span></a></li>
+    </ul>
+    <div class="navbar-actions">
+      <img src="https://ui-avatars.com/api/?name=User&background=61210F&color=FDF0D5&bold=true" alt="User avatar"
+        class="avatar" id="user-avatar" />
+    </div>
+  </nav>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar" role="complementary">
+    <ul class="sidebar-menu">
+      <li class="sidebar-item"><a href="home.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🏠</span><span>Home</span></a></li>
+      <li class="sidebar-item"><a href="interview.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🎤</span><span>Interview</span></a></li>
+      <li class="sidebar-item"><a href="aptitude.html" class="sidebar-link active"><span
+            class="sidebar-link-icon">🧮</span><span>Aptitude Tests</span></a></li>
+      <li class="sidebar-item"><a href="analytics.html" class="sidebar-link"><span
+            class="sidebar-link-icon">📊</span><span>Analytics</span></a></li>
+      <li class="sidebar-item"><a href="profile.html" class="sidebar-link"><span
+            class="sidebar-link-icon">👤</span><span>Profile</span></a></li>
+      <li class="sidebar-item"><a href="settings.html" class="sidebar-link"><span
+            class="sidebar-link-icon">⚙️</span><span>Settings</span></a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div class="container">
+      <!-- Start Test Screen -->
+      <div class="start-screen card" id="start-screen">
+        <div class="start-content">
+          <h2 class="start-title">🧮 Aptitude Test</h2>
+          <p class="start-description">Test your mathematical and logical reasoning skills</p>
+          <div class="test-info">
+            <div class="info-item">
+              <span class="info-icon">❓</span>
+              <span class="info-text">10 Questions per test</span>
+            </div>
+            <div class="info-item">
+              <span class="info-icon">⏱️</span>
+              <span class="info-text">Timed assessment</span>
+            </div>
+            <div class="info-item">
+              <span class="info-icon">🎯</span>
+              <span class="info-text">Instant feedback</span>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-large" id="start-test-btn">
+            <span>🚀</span>
+            <span>Start Test</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Test Container -->
+      <div class="test-container card" id="test-container" style="display: none;">
+        <div class="test-header">
+          <div class="test-title">
+            <span id="test-category">Aptitude Test</span>
+          </div>
+          <div class="test-timer" id="timer" style="display: flex !important;">
+            <span id="time-icon">⏱️</span>
+            <span id="time-display">00:00</span>
+          </div>
+        </div>
+
+        <div class="test-body">
+          <!-- Loading State -->
+          <div class="loading" id="loading">
+            <div class="spinner"></div>
+          </div>
+
+          <!-- Question Container -->
+          <div id="question-container" style="display: none;">
+            <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress" id="progress-bar"></div>
+              </div>
+              <div class="progress-text">
+                <span>Question <span id="current-question">1</span> of <span id="total-questions">10</span></span>
+                <span id="progress-percent">0%</span>
+              </div>
+            </div>
+
+            <div class="question-container">
+              <div class="question-meta">
+                <span id="difficulty">Medium</span>
+                <span id="time-limit">Time limit: 60s</span>
+              </div>
+              <h2 class="question-text" id="question-text">Loading question...</h2>
+
+              <div class="options-container" id="options-container">
+                <!-- Options will be inserted here by JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-footer" style="display: flex !important;">
+          <button class="btn btn-outline" id="back-btn">
+            <span>←</span> Back to Dashboard
+          </button>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-outline" id="skip-btn">
+              Skip
+            </button>
+            <button class="btn btn-primary" id="next-btn" style="display: inline-flex !important;" disabled>
+              Next <span>→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Container -->
+      <div class="results-container" id="results-container">
+        <div class="score-card">
+          <h2>Test Completed!</h2>
+          <div class="score" id="final-score">0/10</div>
+          <div class="accuracy" id="accuracy">0% Accuracy</div>
+          <p>You've completed the aptitude test. Here's how you performed:</p>
+        </div>
+
+        <div class="stats-grid" id="stats-grid">
+          <!-- Stats will be inserted here by JavaScript -->
+        </div>
+
+        <div class="answers-section">
+          <h3 style="margin-bottom: 1.5rem;">Detailed Results</h3>
+          <div id="answers-list">
+            <!-- Answers will be inserted here by JavaScript -->
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+          <button class="btn btn-primary" id="restart-btn">
+            Take Another Test
+          </button>
+          <button class="btn btn-outline" id="dashboard-btn" style="margin-left: 1rem;">
+            Back to Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Action Bar (Mobile) -->
+  <nav class="bottom-action-bar" role="navigation">
+    <a href="home.html" class="bottom-action-btn"><span>🏠</span><span>Home</span></a>
+    <a href="interview.html" class="bottom-action-btn"><span>🎤</span><span>Interview</span></a>
+    <a href="aptitude.html" class="bottom-action-btn active"><span>🧮</span><span>Aptitude</span></a>
+    <a href="analytics.html" class="bottom-action-btn"><span>📊</span><span>Analytics</span></a>
+  </nav>
+
+  <script src="../assets/js/navigation.js"></script>
+  <script src="../assets/js/questions.js"></script>
+  <script>
+    // DOM Elements
+    const testContainer = document.getElementById('test-container');
+    const questionContainer = document.getElementById('question-container');
+    const resultsContainer = document.getElementById('results-container');
+    const loadingElement = document.getElementById('loading');
+    const questionText = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const nextBtn = document.getElementById('next-btn');
+    const skipBtn = document.getElementById('skip-btn');
+    const backBtn = document.getElementById('back-btn');
+    const restartBtn = document.getElementById('restart-btn');
+    const dashboardBtn = document.getElementById('dashboard-btn');
+    const timerElement = document.getElementById('timer');
+    const timeDisplay = document.getElementById('time-display');
+    const progressBar = document.getElementById('progress-bar');
+    const currentQuestionEl = document.getElementById('current-question');
+    const totalQuestionsEl = document.getElementById('total-questions');
+    const progressPercent = document.getElementById('progress-percent');
+    const difficultyEl = document.getElementById('difficulty');
+    const timeLimitEl = document.getElementById('time-limit');
+    const testCategoryEl = document.getElementById('test-category');
+    const finalScoreEl = document.getElementById('final-score');
+    const accuracyEl = document.getElementById('accuracy');
+    const statsGrid = document.getElementById('stats-grid');
+    const answersList = document.getElementById('answers-list');
+
+    // Test state
+    let testState = {
+      questions: [],
+      currentQuestionIndex: 0,
+      selectedOption: null,
+      answers: [],
+      timeLeft: 600, // 10 minutes in seconds
+      timer: null,
+      startTime: null,
+      usedQuestionIds: new Set()
+    };
+
+    // API Configuration
+    const API_BASE_URL = 'http://localhost:5000/api';
+
+    // Show start screen initially
+    function showStartScreen() {
+      document.getElementById('start-screen').style.display = 'block';
+      document.getElementById('test-container').style.display = 'none';
+      document.getElementById('results-container').style.display = 'none';
+    }
+
+    // Hide start screen and show test
+    function hideStartScreen() {
+      document.getElementById('start-screen').style.display = 'none';
+      document.getElementById('test-container').style.display = 'block';
+    }
+
+    // Initialize the test
+    function initTest() {
+      try {
+        hideStartScreen();
+        showLoading();
+
+        // Get 10 random questions that haven't been used before
+        testState.questions = getRandomQuestions(10, Array.from(testState.usedQuestionIds));
+        testState.currentQuestionIndex = 0;
+        testState.answers = new Array(10).fill(null);
+        testState.startTime = new Date();
+        testState.timeLeft = 600; // 10 minutes
+
+        // Mark these questions as used
+        testState.questions.forEach(q => testState.usedQuestionIds.add(q.id));
+
+        // Start timer
+        startTimer();
+
+        // Load first question
+        loadQuestion();
+
+      } catch (error) {
+        console.error('Error initializing test:', error);
+        alert('Failed to start the test. Please try again.');
+        showStartScreen();
+      } finally {
+        hideLoading();
+      }
+    }
+
+    // Load a question
+    function loadQuestion() {
+      try {
+        showLoading();
+
+        if (testState.currentQuestionIndex >= testState.questions.length) {
+          // Test completed, show results
+          showResults();
+          return;
+        }
+
+        const question = testState.questions[testState.currentQuestionIndex];
+
+        // Update UI with the new question
+        questionText.textContent = question.question;
+
+        // Clear previous options
+        optionsContainer.innerHTML = '';
+
+        // Add new options
+        question.options.forEach((option, index) => {
+          const optionElement = document.createElement('div');
+          optionElement.className = 'option';
+          optionElement.innerHTML = `
+            <span class="option-text">${option}</span>
+          `;
+
+          optionElement.addEventListener('click', () => selectOption(index, option));
+          optionsContainer.appendChild(optionElement);
+        });
+
+        // Update question counter
+        currentQuestionEl.textContent = testState.currentQuestionIndex + 1;
+        totalQuestionsEl.textContent = testState.questions.length;
+
+        // Update progress bar
+        const progress = ((testState.currentQuestionIndex + 1) / testState.questions.length) * 100;
+        progressBar.style.width = `${progress}%`;
+        progressPercent.textContent = `${Math.round(progress)}%`;
+
+        // Update difficulty
+        difficultyEl.textContent = question.difficulty || 'Medium';
+
+        // Reset selected option
+        testState.selectedOption = null;
+        nextBtn.disabled = true;
+
+        // Show question container
+        questionContainer.style.display = 'block';
+
+      } catch (error) {
+        console.error('Error loading question:', error);
+        alert('Failed to load question. Please try again.');
+      } finally {
+        hideLoading();
+      }
+    }
+
+    // Select an option
+    function selectOption(index, option) {
+      // Remove selected class from all options
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.classList.remove('selected');
+      });
+
+      // Add selected class to clicked option
+      const selectedOption = optionsContainer.children[index];
+      selectedOption.classList.add('selected');
+
+      // Update selected option
+      testState.selectedOption = index;
+      testState.answers[testState.currentQuestionIndex] = index;
+      nextBtn.disabled = false;
+    }
+
+    // Submit answer
+    function submitAnswer() {
+      if (testState.selectedOption === null) return;
+
+      try {
+        // Show feedback for the answer
+        const question = testState.questions[testState.currentQuestionIndex];
+        const isCorrect = testState.selectedOption === question.correctAnswer;
+
+        showAnswerFeedback(isCorrect, question);
+
+        // Move to next question after a short delay
+        setTimeout(() => {
+          testState.currentQuestionIndex++;
+          if (testState.currentQuestionIndex < testState.questions.length) {
+            loadQuestion();
+          } else {
+            showResults();
+          }
+        }, 1500);
+
+      } catch (error) {
+        console.error('Error submitting answer:', error);
+        alert('Failed to submit answer. Please try again.');
+      }
+    }
+
+    // Show feedback for the answer
+    function showAnswerFeedback(isCorrect, question) {
+      const options = document.querySelectorAll('.option');
+
+      options.forEach((option, index) => {
+        // Disable all options
+        option.style.pointerEvents = 'none';
+
+        // Mark correct and incorrect answers
+        if (index === question.correctAnswer) {
+          option.classList.add('correct');
+        } else if (index === testState.selectedOption && !isCorrect) {
+          option.classList.add('incorrect');
+        }
+      });
+
+      // Disable next button until feedback is shown
+      nextBtn.disabled = true;
+    }
+
+    // Show test results
+    function showResults() {
+      try {
+        showLoading();
+
+        // Clear timer
+        clearInterval(testState.timer);
+
+        // Calculate results
+        const results = calculateResults();
+
+        // Update UI with results
+        updateResultsUI(results);
+
+        // Hide test container and show results container
+        testContainer.style.display = 'none';
+        document.getElementById('start-screen').style.display = 'none';
+        resultsContainer.style.display = 'block';
+
+      } catch (error) {
+        console.error('Error loading results:', error);
+        alert('Failed to load test results. Please try again.');
+      } finally {
+        hideLoading();
+      }
+    }
+
+    // Calculate test results
+    function calculateResults() {
+      let correctCount = 0;
+      const categoryResults = {};
+
+      testState.questions.forEach((question, index) => {
+        const userAnswer = testState.answers[index];
+        const isCorrect = userAnswer === question.correctAnswer;
+
+        if (isCorrect) {
+          correctCount++;
+        }
+
+        // Track category performance
+        if (!categoryResults[question.category]) {
+          categoryResults[question.category] = { correct: 0, total: 0 };
+        }
+        categoryResults[question.category].total++;
+        if (isCorrect) {
+          categoryResults[question.category].correct++;
+        }
+      });
+
+      const endTime = new Date();
+      const timeTaken = Math.floor((endTime - testState.startTime) / 1000);
+
+      return {
+        totalQuestions: testState.questions.length,
+        score: correctCount,
+        accuracy: Math.round((correctCount / testState.questions.length) * 100),
+        average_time_per_question: timeTaken / testState.questions.length,
+        categoryResults: categoryResults,
+        timeTaken: timeTaken,
+        answers: testState.questions.map((question, index) => ({
+          question: question.question,
+          options: question.options,
+          correctAnswer: question.options[question.correctAnswer],
+          userAnswer: testState.answers[index] !== null ? question.options[testState.answers[index]] : 'Not answered',
+          is_correct: testState.answers[index] === question.correctAnswer,
+          category: question.category,
+          difficulty: question.difficulty,
+          explanation: question.explanation
+        }))
+      };
+    }
+
+    // Update results UI
+    function updateResultsUI(results) {
+      // Update score and accuracy
+      finalScoreEl.textContent = `${results.score}/${results.totalQuestions}`;
+      accuracyEl.textContent = `${results.accuracy}% Accuracy`;
+
+      // Update stats grid
+      statsGrid.innerHTML = `
+        <div class="stat-card">
+          <div class="stat-value">${results.total_questions}</div>
+          <div class="stat-label">Total Questions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${results.score}</div>
+          <div class="stat-label">Correct Answers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${results.accuracy}%</div>
+          <div class="stat-label">Accuracy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${Math.round(results.average_time_per_question)}s</div>
+          <div class="stat-label">Avg. Time/Question</div>
+        </div>
+      `;
+
+      // Update answers list
+      answersList.innerHTML = '';
+      results.answers.forEach((answer, index) => {
+        const answerElement = document.createElement('div');
+        answerElement.className = `answer-card ${answer.is_correct ? 'correct-answer' : 'incorrect-answer'}`;
+        answerElement.innerHTML = `
+          <div class="answer-header">
+            <div class="question-number">Question ${index + 1}</div>
+            <div class="answer-status">
+              ${answer.is_correct ? '✓ Correct' : '✗ Incorrect'}
+            </div>
+          </div>
+          <div class="question-text">${answer.question}</div>
+          <div class="answer-details">
+            <div><strong>Your answer:</strong> ${answer.userAnswer || 'Not answered'}</div>
+            ${!answer.is_correct ? `<div><strong>Correct answer:</strong> ${answer.correctAnswer}</div>` : ''}
+            ${answer.explanation ? `
+              <div class="explanation">
+                <div class="explanation-title">Explanation:</div>
+                ${answer.explanation}
+              </div>
+            ` : ''}
+          </div>
+        `;
+        answersList.appendChild(answerElement);
+      });
+    }
+
+    // Update timer display
+    function updateTimerDisplay(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      timeDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+      // Update timer style based on remaining time
+      if (seconds < 60) {
+        timerElement.classList.add('danger');
+        timerElement.classList.remove('warning');
+      } else if (seconds < 180) {
+        timerElement.classList.add('warning');
+        timerElement.classList.remove('danger');
+      } else {
+        timerElement.classList.remove('warning', 'danger');
+      }
+
+      testState.timeLeft = seconds;
+    }
+
+    // Start the test timer
+    function startTimer() {
+      clearInterval(testState.timer);
+
+      // Make sure timer is visible
+      if (timerElement) {
+        timerElement.style.display = 'flex';
+      }
+
+      // Update timer display immediately
+      if (testState.timeLeft > 0) {
+        updateTimerDisplay(testState.timeLeft);
+      }
+
+      testState.timer = setInterval(() => {
+        if (testState.timeLeft > 0) {
+          testState.timeLeft--;
+          updateTimerDisplay(testState.timeLeft);
+        } else {
+          // Time's up, auto-submit if there's a selected answer
+          if (testState.selectedOption !== null) {
+            submitAnswer();
+          } else {
+            // Skip to next question if no answer selected
+            testState.selectedOption = null;
+            nextBtn.disabled = true;
+            loadQuestion();
+          }
+        }
+      }, 1000);
+    }
+
+    // Show loading state
+    function showLoading() {
+      loadingElement.style.display = 'flex';
+      questionContainer.style.display = 'none';
+    }
+
+    // Hide loading state
+    function hideLoading() {
+      loadingElement.style.display = 'none';
+      questionContainer.style.display = 'block';
+    }
+
+    // Event Listeners
+    nextBtn.addEventListener('click', submitAnswer);
+    skipBtn.addEventListener('click', () => {
+      testState.selectedOption = null;
+      nextBtn.disabled = true;
+      loadQuestion();
+    });
+    restartBtn.addEventListener('click', () => {
+      // Reset test state
+      testState = {
+        questions: [],
+        currentQuestionIndex: 0,
+        selectedOption: null,
+        answers: [],
+        timeLeft: 600, // 10 minutes in seconds
+        timer: null,
+        startTime: null,
+        usedQuestionIds: new Set()
+      };
+      // Clear timers
+      clearInterval(testState.timer);
+      // Show start screen
+      showStartScreen();
+    });
+    dashboardBtn.addEventListener('click', () => window.location.href = 'home.html');
+    backBtn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to leave the test? Your progress will be lost.')) {
+        clearInterval(testState.timer);
+        showStartScreen();
+      }
+    });
+
+    // Start Test Button Event
+    document.getElementById('start-test-btn').addEventListener('click', () => {
+      initTest();
+    });
+
+    // Start the test when the page loads - show start screen instead
+    document.addEventListener('DOMContentLoaded', () => {
+      showStartScreen();
+    });
+  </script>
+</body>
+
+</html>

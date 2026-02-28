@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytics | AI Interviewer</title>
+  <meta name="description"
+    content="Track your interview performance with detailed analytics, charts, and personalized improvement plans." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/theme.css" />
+  <link rel="stylesheet" href="../assets/css/layout.css" />
+  <link rel="stylesheet" href="../assets/css/analytics.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+
+  <!-- ── Top Navbar ── -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation" id="main-navbar">
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle sidebar"
+      aria-expanded="false">☰</button>
+    <a href="home.html" class="navbar-brand">
+      <div class="brand-icon">🎯</div>
+      <span>AI Interviewer</span>
+    </a>
+    <ul class="navbar-nav" role="list">
+      <li class="nav-item"><a href="home.html" class="nav-link"><span>🏠</span><span>Home</span></a></li>
+      <li class="nav-item"><a href="interview.html" class="nav-link"><span>🎤</span><span>Interview</span></a></li>
+      <li class="nav-item"><a href="aptitude.html" class="nav-link"><span>🧮</span><span>Aptitude</span></a></li>
+      <li class="nav-item"><a href="analytics.html" class="nav-link active"
+          aria-current="page"><span>📊</span><span>Analytics</span></a></li>
+    </ul>
+    <div class="navbar-actions">
+      <img src="https://ui-avatars.com/api/?name=User&background=61210F&color=FDF0D5&bold=true" alt="User avatar"
+        class="avatar" id="user-avatar" />
+    </div>
+  </nav>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar" id="sidebar" role="complementary" aria-label="Sidebar navigation">
+    <ul class="sidebar-menu" role="list">
+      <li class="sidebar-item"><a href="home.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🏠</span><span>Home</span></a></li>
+      <li class="sidebar-item"><a href="interview.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🎤</span><span>Interview</span></a></li>
+      <li class="sidebar-item"><a href="aptitude.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🧮</span><span>Aptitude Tests</span></a></li>
+      <li class="sidebar-item"><a href="analytics.html" class="sidebar-link active" aria-current="page"><span
+            class="sidebar-link-icon">📊</span><span>Analytics</span></a></li>
+      <li class="sidebar-item"><a href="profile.html" class="sidebar-link"><span
+            class="sidebar-link-icon">👤</span><span>Profile</span></a></li>
+      <li class="sidebar-item"><a href="settings.html" class="sidebar-link"><span
+            class="sidebar-link-icon">⚙️</span><span>Settings</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- ── Main Content ── -->
+  <main class="main-content" role="main">
+    <div class="container">
+
+      <div class="page-header analytics-header">
+        <div>
+          <h1 class="page-title">Analytics Dashboard</h1>
+          <p class="page-subtitle">Track your interview performance and improvement over time</p>
+        </div>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="stats-grid" role="list" aria-label="Summary statistics">
+        <div class="stat-card card" role="listitem">
+          <div class="stat-icon" aria-hidden="true">📊</div>
+          <div class="stat-value" id="total-attempts">0</div>
+          <div class="stat-label">Total Attempts</div>
+          <div class="stat-trend positive" aria-label="12% increase this month">↑ 12% this month</div>
+        </div>
+        <div class="stat-card card" role="listitem">
+          <div class="stat-icon" aria-hidden="true">⭐</div>
+          <div class="stat-value" id="avg-score">0%</div>
+          <div class="stat-label">Average Score</div>
+          <div class="stat-trend positive" aria-label="5% improvement">↑ 5% improvement</div>
+        </div>
+        <div class="stat-card card" role="listitem">
+          <div class="stat-icon" aria-hidden="true">⏱️</div>
+          <div class="stat-value" id="total-time">0h</div>
+          <div class="stat-label">Time Spent</div>
+          <div class="stat-trend">Consistent practice</div>
+        </div>
+        <div class="stat-card card" role="listitem">
+          <div class="stat-icon" aria-hidden="true">🎯</div>
+          <div class="stat-value" id="topics-mastered">0</div>
+          <div class="stat-label">Topics Mastered</div>
+          <div class="stat-trend positive" aria-label="3 new this week">+3 this week</div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="charts-section">
+        <div class="chart-card card">
+          <h2 class="chart-title">Score Trend Over Time</h2>
+          <div class="chart-wrapper"><canvas id="score-trend-chart" aria-label="Score trend line chart"></canvas></div>
+        </div>
+        <div class="chart-card card">
+          <h2 class="chart-title">Performance by Topic</h2>
+          <div class="chart-wrapper"><canvas id="topic-performance-chart"
+              aria-label="Topic performance bar chart"></canvas></div>
+        </div>
+        <div class="chart-card card">
+          <h2 class="chart-title">Time per Question</h2>
+          <div class="chart-wrapper"><canvas id="time-per-question-chart"
+              aria-label="Time per question bar chart"></canvas></div>
+        </div>
+        <div class="chart-card card">
+          <h2 class="chart-title">Difficulty Breakdown</h2>
+          <div class="chart-wrapper"><canvas id="difficulty-chart"
+              aria-label="Difficulty breakdown doughnut chart"></canvas></div>
+        </div>
+      </div>
+
+      <!-- Analysis Section Removed per request -->
+
+      <!-- Performance Heatmap -->
+      <div class="heatmap-section card static">
+        <h2 class="section-title">Performance Heatmap</h2>
+        <div id="performance-heatmap" class="heatmap-container" aria-label="Performance heatmap">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Attempt History -->
+      <div class="history-section">
+        <h2 class="section-title">Recent Attempts</h2>
+        <div id="attempt-history" class="attempt-list" role="list" aria-label="Recent attempt history">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Learning Plan -->
+      <div class="learning-plan-section card static">
+        <h2 class="section-title">📚 Personalized Learning Plan</h2>
+        <div id="learning-plan" class="learning-plan-list" aria-label="Your personalized learning plan">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-action-bar" role="navigation" aria-label="Mobile navigation">
+    <a href="home.html" class="bottom-action-btn"><span>🏠</span><span>Home</span></a>
+    <a href="interview.html" class="bottom-action-btn"><span>🎤</span><span>Interview</span></a>
+    <a href="aptitude.html" class="bottom-action-btn"><span>🧮</span><span>Aptitude</span></a>
+    <a href="analytics.html" class="bottom-action-btn active"
+      aria-current="page"><span>📊</span><span>Analytics</span></a>
+  </nav>
+
+  <script src="../assets/js/navigation.js"></script>
+  <script src="../assets/js/analytics.js"></script>
+</body>
+
+</html>

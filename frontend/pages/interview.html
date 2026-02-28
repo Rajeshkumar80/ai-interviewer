@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interview | AI Interviewer</title>
+  <meta name="description"
+    content="Practice AI-powered mock interviews with voice recording, code editor, and instant feedback." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/theme.css" />
+  <link rel="stylesheet" href="../assets/css/layout.css" />
+  <link rel="stylesheet" href="../assets/css/interview.css" />
+  <link rel="stylesheet" href="../assets/css/result.css" />
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
+</head>
+
+<body>
+  <!-- Top Navigation -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation" id="main-navbar">
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle sidebar"
+      aria-expanded="false">☰</button>
+    <a href="home.html" class="navbar-brand">
+      <div class="brand-icon">🎯</div>
+      <span>AI Interviewer</span>
+    </a>
+    <ul class="navbar-nav" role="list">
+      <li class="nav-item"><a href="home.html" class="nav-link"><span>🏠</span><span>Home</span></a></li>
+      <li class="nav-item"><a href="interview.html" class="nav-link active"
+          aria-current="page"><span>🎤</span><span>Interview</span></a></li>
+      <li class="nav-item"><a href="aptitude.html" class="nav-link"><span>🧮</span><span>Aptitude</span></a></li>
+      <li class="nav-item"><a href="analytics.html" class="nav-link"><span>📊</span><span>Analytics</span></a></li>
+    </ul>
+    <div class="navbar-actions">
+      <img src="https://ui-avatars.com/api/?name=User&background=61210F&color=FDF0D5&bold=true" alt="User avatar"
+        class="avatar" id="user-avatar" />
+    </div>
+  </nav>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar" role="complementary">
+    <ul class="sidebar-menu">
+      <li class="sidebar-item"><a href="home.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🏠</span><span>Home</span></a></li>
+      <li class="sidebar-item"><a href="interview.html" class="sidebar-link active"><span
+            class="sidebar-link-icon">🎤</span><span>Interview</span></a></li>
+      <li class="sidebar-item"><a href="aptitude.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🧮</span><span>Aptitude Tests</span></a></li>
+      <li class="sidebar-item"><a href="analytics.html" class="sidebar-link"><span
+            class="sidebar-link-icon">📊</span><span>Analytics</span></a></li>
+      <li class="sidebar-item"><a href="profile.html" class="sidebar-link"><span
+            class="sidebar-link-icon">👤</span><span>Profile</span></a></li>
+      <li class="sidebar-item"><a href="settings.html" class="sidebar-link"><span
+            class="sidebar-link-icon">⚙️</span><span>Settings</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <!-- Configuration Screen -->
+    <section id="config-screen" class="interview-screen active">
+      <div class="container">
+        <h1 class="page-title">Configure Your Interview</h1>
+        <p class="page-subtitle">Customize your interview experience based on your target role and preferences</p>
+
+        <div class="config-container card">
+          <form id="interview-config-form">
+            <!-- Role/Title -->
+            <div class="form-group">
+              <label for="role" class="form-label">Target Role/Title *</label>
+              <input type="text" id="role" name="role" class="form-input"
+                placeholder="e.g. Frontend Developer, Software Engineer" required />
+            </div>
+
+            <!-- Domain -->
+            <div class="form-group">
+              <label class="form-label">Select Domain *</label>
+              <div class="radio-group" id="domain-radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="domain" value="frontend" checked />
+                  <span>🖥️ Frontend</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="domain" value="backend" />
+                  <span>⚙️ Backend</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="domain" value="fullstack" />
+                  <span>🔗 Full Stack</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="domain" value="language" />
+                  <span>💻 Programming Language</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Technologies Quick Select -->
+            <div class="form-group">
+              <label class="form-label">Select Technologies</label>
+              <div class="tech-quick-select" id="tech-quick-select">
+                <button type="button" class="tech-chip" data-tech="HTML">HTML</button>
+                <button type="button" class="tech-chip" data-tech="CSS">CSS</button>
+                <button type="button" class="tech-chip" data-tech="JavaScript">JavaScript</button>
+                <button type="button" class="tech-chip" data-tech="React">React</button>
+                <button type="button" class="tech-chip" data-tech="Vue.js">Vue.js</button>
+                <button type="button" class="tech-chip" data-tech="Angular">Angular</button>
+                <button type="button" class="tech-chip" data-tech="Node.js">Node.js</button>
+                <button type="button" class="tech-chip" data-tech="Python">Python</button>
+                <button type="button" class="tech-chip" data-tech="Java">Java</button>
+                <button type="button" class="tech-chip" data-tech="SQL">SQL</button>
+                <button type="button" class="tech-chip" data-tech="MongoDB">MongoDB</button>
+                <button type="button" class="tech-chip" data-tech="TypeScript">TypeScript</button>
+                <button type="button" class="tech-chip" data-tech="Docker">Docker</button>
+                <button type="button" class="tech-chip" data-tech="AWS">AWS</button>
+                <button type="button" class="tech-chip" data-tech="C++">C++</button>
+                <button type="button" class="tech-chip" data-tech="Go">Go</button>
+              </div>
+              <div class="tag-input-container" style="margin-top:10px;">
+                <input type="text" id="tech-stack-input" class="form-input"
+                  placeholder="Or type custom tech and press Enter" />
+                <div id="tech-stack-tags" class="tags-container"></div>
+              </div>
+            </div>
+
+            <!-- Skill Tags -->
+            <div class="form-group">
+              <label for="skill-tags" class="form-label">Skill Tags</label>
+              <div class="tag-input-container">
+                <input type="text" id="skill-tags-input" class="form-input" placeholder="e.g. React, Node.js, Python" />
+                <div id="skill-tags-container" class="tags-container"></div>
+              </div>
+            </div>
+
+            <!-- Difficulty -->
+            <div class="form-group">
+              <label for="difficulty" class="form-label">Difficulty Level *</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="difficulty" value="easy" checked />
+                  <span>Easy</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="difficulty" value="medium" />
+                  <span>Medium</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="difficulty" value="hard" />
+                  <span>Hard</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Number of Questions -->
+            <div class="form-group">
+              <label for="num-questions" class="form-label">Number of Questions *</label>
+              <select id="num-questions" name="num_questions" class="form-select" required>
+                <option value="5">5 Questions</option>
+                <option value="8" selected>8 Questions</option>
+                <option value="10">10 Questions</option>
+                <option value="15">15 Questions</option>
+              </select>
+            </div>
+
+            <!-- Question Types -->
+            <div class="form-group">
+              <label class="form-label">Question Types *</label>
+              <div class="checkbox-group">
+                <label class="checkbox-option">
+                  <input type="checkbox" name="question_types" value="coding" checked />
+                  <span>Coding</span>
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="question_types" value="behavioral" checked />
+                  <span>Behavioral</span>
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="question_types" value="system_design" />
+                  <span>System Design</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Mode -->
+            <div class="form-group">
+              <label for="mode" class="form-label">Interview Mode *</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="mode" value="practice" checked />
+                  <span>Practice (No scoring, with feedback)</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="mode" value="exam" />
+                  <span>Exam (Timed, no mid-feedback)</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Presets -->
+            <div class="form-group">
+              <label class="form-label">Quick Presets</label>
+              <div class="presets-container">
+                <button type="button" class="preset-btn" data-preset="frontend-react">
+                  Frontend — React — Medium — 8
+                </button>
+                <button type="button" class="preset-btn" data-preset="backend-node">
+                  Backend — Node.js — Medium — 10
+                </button>
+                <button type="button" class="preset-btn" data-preset="fullstack">
+                  Full Stack — Medium — 12
+                </button>
+                <button type="button" class="preset-btn" data-preset="senior">
+                  Senior Engineer — Hard — 15
+                </button>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary btn-large">
+                <span>🚀</span>
+                <span>Start Interview</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interview Session Screen -->
+    <section id="interview-screen" class="interview-screen">
+      <div class="interview-session-container">
+        <!-- Header with Timer -->
+        <div class="interview-header card">
+          <div class="interview-meta">
+            <h2 id="interview-role">Interview Session</h2>
+            <p id="interview-mode" class="mode-badge">Practice Mode</p>
+          </div>
+          <div class="timer-container">
+            <div class="timer-display" id="overall-timer">
+              <span class="timer-icon">⏱️</span>
+              <span class="timer-text">00:00:00</span>
+            </div>
+            <div class="question-timer" id="question-timer">
+              <span>Question Time: <span id="question-time">00:00</span></span>
+            </div>
+            <div class="timer-controls">
+              <button class="btn btn-secondary btn-sm" id="pause-btn">⏸️ Pause</button>
+              <button class="btn btn-secondary btn-sm" id="resume-btn" style="display: none;">▶️ Resume</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question Container -->
+        <div class="question-section card">
+          <div class="question-header">
+            <span class="question-number">Question <span id="current-q-num">1</span> of <span
+                id="total-q-num">8</span></span>
+            <span class="question-type" id="question-type-badge">Coding</span>
+          </div>
+          <div class="question-content">
+            <h3 id="question-text" class="question-text">Loading question.</h3>
+            <div id="question-audio" class="question-audio" style="display: none;">
+              <button class="btn btn-secondary" id="play-audio-btn">🔊 Play Question</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Answer Section -->
+        <div class="answer-section">
+          <!-- For Coding Questions -->
+          <div id="coding-answer-container" class="answer-container card" style="display: none;">
+            <div class="editor-header">
+              <label for="language-select" class="form-label">Language:</label>
+              <select id="language-select" class="form-select">
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+                <option value="cpp">C++</option>
+                <option value="csharp">C#</option>
+              </select>
+              <div class="editor-actions">
+                <button class="btn btn-secondary" id="run-code-btn">▶️ Run</button>
+                <button class="btn btn-secondary" id="test-code-btn">🧪 Test</button>
+              </div>
+            </div>
+            <div id="code-editor" class="code-editor"></div>
+            <div id="terminal-output" class="terminal-output">
+              <div class="terminal-header">Terminal Output</div>
+              <div id="terminal-content" class="terminal-content"></div>
+            </div>
+          </div>
+
+          <!-- For Behavioral/System Design Questions -->
+          <div id="voice-answer-container" class="answer-container card" style="display: none;">
+            <div class="voice-recorder">
+              <div class="recorder-status" id="recorder-status">
+                <span class="status-indicator"></span>
+                <span id="recorder-status-text">Ready to record</span>
+              </div>
+              <div class="recorder-controls">
+                <button class="btn btn-primary btn-large" id="start-recording-btn">
+                  <span>🎙️</span>
+                  <span>Start Recording</span>
+                </button>
+                <button class="btn btn-secondary btn-large" id="stop-recording-btn" style="display: none;">
+                  <span>⏹️</span>
+                  <span>Stop Recording</span>
+                </button>
+                <button class="btn btn-secondary" id="playback-btn" style="display: none;">
+                  <span>🔊</span>
+                  <span>Playback</span>
+                </button>
+              </div>
+
+              <div id="transcript-display" class="transcript-display">
+                <p class="transcript-label">Your Answer (voice transcript):</p>
+                <p id="transcript-text" class="transcript-text">Your spoken answer will appear here.</p>
+              </div>
+
+              <div class="typed-answer-container">
+                <p class="transcript-label">Or type your answer:</p>
+                <textarea id="text-answer" class="text-answer-input"
+                  placeholder="Type your answer here if you don't want to speak."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- For Aptitude Questions -->
+          <div id="aptitude-answer-container" class="answer-container card" style="display: none;">
+            <h3 class="section-title">Select the correct answer:</h3>
+            <div id="aptitude-options" class="aptitude-options-grid">
+              <!-- Options injected via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Preview + Per-question Remark -->
+        <div class="card bottom-split">
+          <div class="video-preview-container">
+            <h3 class="section-title">Camera Preview</h3>
+            <video id="user-video" class="user-video" autoplay muted playsinline></video>
+            <p class="video-hint">Make sure your face is visible before you answer.</p>
+          </div>
+          <div class="ai-remark-container">
+            <h3 class="section-title">AI Remark for This Answer</h3>
+            <p id="ai-remark-text" class="ai-remark-text">
+              After you submit, AI remarks about your answer will appear here.
+            </p>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-section card">
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="interview-progress-bar"></div>
+          </div>
+          <div class="progress-text">
+            <span>Progress: <span id="progress-percent">0</span>%</span>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="interview-actions">
+          <button class="btn btn-secondary" id="prev-question-btn" disabled>← Previous</button>
+          <button class="btn btn-primary" id="submit-answer-btn">Submit Answer →</button>
+          <button class="btn btn-secondary" id="end-interview-btn">End Interview</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab Switch Warning Overlay -->
+    <div id="tab-switch-overlay"
+      style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.82); z-index:99999; align-items:center; justify-content:center; flex-direction:column; text-align:center; color:#fff; padding:30px;">
+      <div
+        style="background:rgba(97,33,15,0.95); border:2px solid #e8a87c; border-radius:20px; padding:40px; max-width:480px; width:90%;">
+        <div style="font-size:48px; margin-bottom:16px;">⚠️</div>
+        <h2 style="font-size:1.5rem; margin-bottom:12px; color:#FDF0D5;">Interview In Progress!</h2>
+        <p id="tab-warning-msg" style="color:#e8c5a0; margin-bottom:24px; line-height:1.6;">You switched tabs. Please
+          return to continue your interview.</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <button id="tab-resume-btn"
+            style="background:#61210F; color:#FDF0D5; border:none; border-radius:10px; padding:12px 28px; font-weight:600; cursor:pointer; font-size:1rem;">▶
+            Continue Interview</button>
+          <button id="tab-end-btn"
+            style="background:rgba(255,255,255,0.1); color:#FDF0D5; border:1px solid rgba(255,255,255,0.3); border-radius:10px; padding:12px 28px; font-weight:600; cursor:pointer; font-size:1rem;">✔
+            End & Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <section id="results-screen" class="interview-screen">
+      <div class="container">
+        <h1 class="page-title">Interview Results</h1>
+        <div id="results-content" class="results-content">
+          <!-- Results will be loaded here -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Action Bar (Mobile) -->
+  <nav class="bottom-action-bar" role="navigation">
+    <a href="home.html" class="bottom-action-btn"><span>🏠</span><span>Home</span></a>
+    <a href="interview.html" class="bottom-action-btn active"><span>🎤</span><span>Interview</span></a>
+    <a href="aptitude.html" class="bottom-action-btn"><span>🧮</span><span>Aptitude</span></a>
+    <a href="analytics.html" class="bottom-action-btn"><span>📊</span><span>Analytics</span></a>
+  </nav>
+
+  <script src="../assets/js/navigation.js"></script>
+  <script src="../assets/js/interview.js"></script>
+
+</body>
+
+</html>

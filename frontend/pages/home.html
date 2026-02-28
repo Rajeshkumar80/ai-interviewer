@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home | AI Interviewer</title>
+  <meta name="description"
+    content="Your AI-powered mock interview dashboard. Practice, get feedback, and track your growth." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/theme.css" />
+  <link rel="stylesheet" href="../assets/css/layout.css" />
+  <link rel="stylesheet" href="../assets/css/home.css" />
+</head>
+
+<body>
+
+  <!-- ── Top Navbar ─────────────── -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation" id="main-navbar">
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle sidebar"
+      aria-expanded="false">☰</button>
+    <a href="home.html" class="navbar-brand">
+      <div class="brand-icon">🎯</div>
+      <span>AI Interviewer</span>
+    </a>
+    <ul class="navbar-nav" role="list">
+      <li class="nav-item"><a href="home.html" class="nav-link active"
+          aria-current="page"><span>🏠</span><span>Home</span></a></li>
+      <li class="nav-item"><a href="interview.html" class="nav-link"><span>🎤</span><span>Interview</span></a></li>
+      <li class="nav-item"><a href="aptitude.html" class="nav-link"><span>🧮</span><span>Aptitude</span></a></li>
+      <li class="nav-item"><a href="analytics.html" class="nav-link"><span>📊</span><span>Analytics</span></a></li>
+    </ul>
+    <div class="navbar-actions">
+      <img src="https://ui-avatars.com/api/?name=User&background=61210F&color=FDF0D5&bold=true" alt="User avatar"
+        class="avatar" id="user-avatar" />
+    </div>
+  </nav>
+
+  <!-- Sidebar overlay (mobile) -->
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- ── Sidebar ─────────────────── -->
+  <aside class="sidebar" id="sidebar" role="complementary" aria-label="Sidebar navigation">
+    <ul class="sidebar-menu" role="list">
+      <li class="sidebar-item">
+        <a href="home.html" class="sidebar-link active" aria-current="page">
+          <span class="sidebar-link-icon">🏠</span><span>Home</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="interview.html" class="sidebar-link">
+          <span class="sidebar-link-icon">🎤</span><span>Interview</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="aptitude.html" class="sidebar-link">
+          <span class="sidebar-link-icon">🧮</span><span>Aptitude Tests</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="analytics.html" class="sidebar-link">
+          <span class="sidebar-link-icon">📊</span><span>Analytics</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="profile.html" class="sidebar-link">
+          <span class="sidebar-link-icon">👤</span><span>Profile</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="settings.html" class="sidebar-link">
+          <span class="sidebar-link-icon">⚙️</span><span>Settings</span>
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- ── Main Content ─────────────── -->
+  <main class="main-content" role="main">
+
+    <!-- Hero Section -->
+    <section class="hero-section animate-fade-in">
+      <div class="hero-content">
+        <div class="hero-badge">AI-Powered Practice Platform</div>
+        <h1 class="hero-title">
+          Master Your<br /><span class="gradient-text">Interview Skills</span>
+        </h1>
+        <p class="hero-subtitle">
+          Practice with AI-driven mock interviews, receive real-time feedback, and track your progress with personalized
+          analytics.
+        </p>
+        <div class="hero-actions">
+          <a href="interview.html" class="btn btn-primary btn-lg" id="start-interview-btn">
+            <span>🚀</span><span>Start Interview</span>
+          </a>
+          <a href="aptitude.html" class="btn btn-secondary btn-lg" id="take-aptitude-btn">
+            <span>🧮</span><span>Aptitude Test</span>
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card card delay-100 animate-scale-in">
+          <div class="feature-icon">🎤</div>
+          <h3>Voice Interviews</h3>
+          <p>AI-powered voice practice</p>
+        </div>
+        <div class="hero-card card delay-200 animate-scale-in">
+          <div class="feature-icon">💻</div>
+          <h3>Code Editor</h3>
+          <p>Live coding challenges</p>
+        </div>
+        <div class="hero-card card delay-300 animate-scale-in">
+          <div class="feature-icon">📊</div>
+          <h3>Analytics</h3>
+          <p>Track your progress</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+      <h2 class="section-title">What Makes Us Different</h2>
+      <div class="features-grid">
+        <div class="feature-card card animate-scale-in">
+          <div class="feature-icon-large">🤖</div>
+          <h3>AI-Driven Mock Interviews</h3>
+          <p>Realistic scenarios powered by advanced AI. Questions tailored to your role and experience level.</p>
+        </div>
+        <div class="feature-card card animate-scale-in delay-100">
+          <div class="feature-icon-large">🎙️</div>
+          <h3>Voice Answer Capture</h3>
+          <p>Record your answers using your microphone. AI analyzes speech for confidence, fluency, and clarity.</p>
+        </div>
+        <div class="feature-card card animate-scale-in delay-200">
+          <div class="feature-icon-large">⌨️</div>
+          <h3>Code Editor Evaluation</h3>
+          <p>Solve coding problems in our integrated Monaco editor. Get instant feedback with test case execution.</p>
+        </div>
+        <div class="feature-card card animate-scale-in delay-300">
+          <div class="feature-icon-large">⏱️</div>
+          <h3>Timed Aptitude Tests</h3>
+          <p>Practice with timed MCQ quizzes. Build speed and accuracy for real interview scenarios.</p>
+        </div>
+        <div class="feature-card card animate-scale-in delay-400">
+          <div class="feature-icon-large">📈</div>
+          <h3>Personalized Analytics</h3>
+          <p>Track performance across topics, identify strengths and weaknesses with data-driven insights.</p>
+        </div>
+        <div class="feature-card card animate-scale-in delay-500">
+          <div class="feature-icon-large">💡</div>
+          <h3>Learning Suggestions</h3>
+          <p>Receive personalized learning recommendations based on your performance history.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Helps Section -->
+    <section class="how-it-helps-section">
+      <h2 class="section-title">How It Helps You Succeed</h2>
+      <div class="steps-container">
+        <div class="step-card card animate-slide-in">
+          <div class="step-number">1</div>
+          <h3>Practice Makes Perfect</h3>
+          <p>Take unlimited mock interviews to build confidence. Practice coding, behavioral, and system design
+            problems.</p>
+          <div class="step-visual">
+            <div class="progress-ring">
+              <svg width="80" height="80" aria-hidden="true">
+                <circle cx="40" cy="40" r="35" fill="none" stroke="rgba(97,33,15,0.12)" stroke-width="6" />
+                <circle cx="40" cy="40" r="35" fill="none" stroke="#61210F" stroke-width="6" stroke-dasharray="220"
+                  stroke-dashoffset="66" transform="rotate(-90 40 40)" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="step-card card animate-slide-in delay-200">
+          <div class="step-number">2</div>
+          <h3>Get Instant Feedback</h3>
+          <p>Comprehensive evaluation after each session. Understand what you did well and where to improve.</p>
+          <div class="step-visual">
+            <div class="feedback-icons">
+              <span class="feedback-icon">✓</span>
+              <span class="feedback-icon">💬</span>
+              <span class="feedback-icon">⭐</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-card card animate-slide-in delay-400">
+          <div class="step-number">3</div>
+          <h3>Track Your Progress</h3>
+          <p>Monitor improvement over time with detailed analytics, scores, and topic-wise performance trends.</p>
+          <div class="step-visual">
+            <div class="chart-preview" aria-hidden="true">
+              <div class="chart-bar" style="height: 60%"></div>
+              <div class="chart-bar" style="height: 75%"></div>
+              <div class="chart-bar" style="height: 90%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="stats-section" aria-label="Your statistics">
+      <div class="stats-grid">
+        <div class="stat-card card">
+          <div class="stat-value" id="total-interviews">0</div>
+          <div class="stat-label">Interviews Completed</div>
+        </div>
+        <div class="stat-card card">
+          <div class="stat-value" id="avg-score">0%</div>
+          <div class="stat-label">Average Score</div>
+        </div>
+        <div class="stat-card card">
+          <div class="stat-value" id="streak-days">0</div>
+          <div class="stat-label">Day Streak</div>
+        </div>
+        <div class="stat-card card">
+          <div class="stat-value" id="topics-mastered">0</div>
+          <div class="stat-label">Topics Mastered</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Bottom Navigation (Mobile) ── -->
+  <nav class="bottom-action-bar" role="navigation" aria-label="Mobile navigation">
+    <a href="home.html" class="bottom-action-btn active"><span>🏠</span><span>Home</span></a>
+    <a href="interview.html" class="bottom-action-btn"><span>🎤</span><span>Interview</span></a>
+    <a href="aptitude.html" class="bottom-action-btn"><span>🧮</span><span>Aptitude</span></a>
+    <a href="analytics.html" class="bottom-action-btn"><span>📊</span><span>Analytics</span></a>
+  </nav>
+
+  <!-- Help bubble -->
+  <button class="help-bubble" id="help-bubble" aria-label="Get help" title="Help"></button>
+
+  <script src="../assets/js/navigation.js"></script>
+  <script src="../assets/js/home.js"></script>
+</body>
+
+</html>

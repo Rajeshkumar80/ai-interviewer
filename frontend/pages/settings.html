@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings | AI Interviewer</title>
+  <meta name="description"
+    content="Manage your AI Interviewer account settings, audio preferences, notifications, and data exports." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/theme.css" />
+  <link rel="stylesheet" href="../assets/css/layout.css" />
+  <link rel="stylesheet" href="../assets/css/settings.css" />
+</head>
+
+<body>
+
+  <!-- ── Top Navbar ── -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation" id="main-navbar">
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle sidebar"
+      aria-expanded="false">☰</button>
+    <a href="home.html" class="navbar-brand">
+      <div class="brand-icon">🎯</div>
+      <span>AI Interviewer</span>
+    </a>
+    <ul class="navbar-nav" role="list">
+      <li class="nav-item"><a href="home.html" class="nav-link"><span>🏠</span><span>Home</span></a></li>
+      <li class="nav-item"><a href="interview.html" class="nav-link"><span>🎤</span><span>Interview</span></a></li>
+      <li class="nav-item"><a href="aptitude.html" class="nav-link"><span>🧮</span><span>Aptitude</span></a></li>
+      <li class="nav-item"><a href="analytics.html" class="nav-link"><span>📊</span><span>Analytics</span></a></li>
+    </ul>
+    <div class="navbar-actions">
+      <img src="https://ui-avatars.com/api/?name=User&background=61210F&color=FDF0D5&bold=true" alt="User avatar"
+        class="avatar" id="user-avatar" />
+    </div>
+  </nav>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar" id="sidebar" role="complementary" aria-label="Sidebar navigation">
+    <ul class="sidebar-menu" role="list">
+      <li class="sidebar-item"><a href="home.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🏠</span><span>Home</span></a></li>
+      <li class="sidebar-item"><a href="interview.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🎤</span><span>Interview</span></a></li>
+      <li class="sidebar-item"><a href="aptitude.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🧮</span><span>Aptitude Tests</span></a></li>
+      <li class="sidebar-item"><a href="analytics.html" class="sidebar-link"><span
+            class="sidebar-link-icon">📊</span><span>Analytics</span></a></li>
+      <li class="sidebar-item"><a href="profile.html" class="sidebar-link"><span
+            class="sidebar-link-icon">👤</span><span>Profile</span></a></li>
+      <li class="sidebar-item"><a href="settings.html" class="sidebar-link active" aria-current="page"><span
+            class="sidebar-link-icon">⚙️</span><span>Settings</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- ── Main Content ── -->
+  <main class="main-content" role="main">
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="page-title">Settings</h1>
+        <p class="page-subtitle">Manage your preferences, audio options, notifications, and data.</p>
+      </div>
+
+      <!-- Audio Settings -->
+      <section class="settings-section card static" aria-labelledby="audio-settings-title">
+        <h2 id="audio-settings-title" class="section-title">🎙️ Audio Settings</h2>
+        <div class="settings-content">
+          <div class="setting-item">
+            <div class="setting-info">
+              <label class="setting-label" for="mic-select">Microphone</label>
+              <p class="setting-description">Select your preferred microphone device</p>
+            </div>
+            <select id="mic-select" class="form-select" aria-label="Microphone selection">
+              <option value="default">Default Microphone</option>
+            </select>
+          </div>
+          <div class="setting-item">
+            <div class="setting-info">
+              <label class="setting-label" for="playback-volume">Audio Playback Volume</label>
+              <p class="setting-description">Adjust playback volume for recorded answers</p>
+            </div>
+            <div class="volume-control">
+              <input type="range" id="playback-volume" class="volume-slider" min="0" max="100" value="75"
+                aria-label="Playback volume" />
+              <span class="volume-value" id="volume-value" aria-live="polite">75%</span>
+            </div>
+          </div>
+          <div class="setting-item">
+            <div class="setting-info">
+              <label class="setting-label" for="autoplay-toggle">Auto-playback</label>
+              <p class="setting-description">Automatically play back your recorded answers</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="autoplay-toggle" checked aria-label="Auto-playback toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data Management -->
+      <section class="settings-section card static" aria-labelledby="data-title">
+        <h2 id="data-title" class="section-title">💾 Data Management</h2>
+        <div class="settings-content">
+          <div class="setting-item">
+            <div class="setting-info">
+              <label class="setting-label">Export Your Data</label>
+              <p class="setting-description">Download your interview history and analytics as CSV or PDF</p>
+            </div>
+            <div class="export-options">
+              <button class="btn btn-secondary" id="export-csv-btn" aria-label="Export data as CSV">
+                <span>📊</span><span>Export CSV</span>
+              </button>
+              <button class="btn btn-secondary" id="export-pdf-btn" aria-label="Export data as PDF">
+                <span>📄</span><span>Export PDF</span>
+              </button>
+            </div>
+          </div>
+          <div class="setting-item danger-zone">
+            <div class="setting-info">
+              <label class="setting-label">Delete Account</label>
+              <p class="setting-description">Permanently remove your account and all associated data</p>
+            </div>
+            <button class="btn danger" id="delete-account-btn" aria-label="Delete account">
+              <span>🗑️</span><span>Delete Account</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Account -->
+      <section class="settings-section card static" aria-labelledby="account-title">
+        <h2 id="account-title" class="section-title">🔐 Account</h2>
+        <div class="settings-content">
+          <div class="setting-item">
+            <div class="setting-info">
+              <label class="setting-label">Sign Out</label>
+              <p class="setting-description">Sign out of your current session</p>
+            </div>
+            <button class="btn btn-primary" id="logout-btn" aria-label="Logout">
+              <span>🚪</span><span>Logout</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-action-bar" role="navigation" aria-label="Mobile navigation">
+    <a href="home.html" class="bottom-action-btn"><span>🏠</span><span>Home</span></a>
+    <a href="interview.html" class="bottom-action-btn"><span>🎤</span><span>Interview</span></a>
+    <a href="aptitude.html" class="bottom-action-btn"><span>🧮</span><span>Aptitude</span></a>
+    <a href="analytics.html" class="bottom-action-btn"><span>📊</span><span>Analytics</span></a>
+  </nav>
+
+  <script src="../assets/js/navigation.js"></script>
+  <script src="../assets/js/settings.js"></script>
+</body>
+
+</html>

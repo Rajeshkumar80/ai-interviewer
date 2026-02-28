@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile | AI Interviewer</title>
+  <meta name="description" content="Manage your personal and professional profile on AI Interviewer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/theme.css" />
+  <link rel="stylesheet" href="../assets/css/layout.css" />
+  <link rel="stylesheet" href="../assets/css/profile.css" />
+</head>
+
+<body>
+
+  <!-- ── Top Navbar ── -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation" id="main-navbar">
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle sidebar"
+      aria-expanded="false">☰</button>
+    <a href="home.html" class="navbar-brand">
+      <div class="brand-icon">🎯</div>
+      <span>AI Interviewer</span>
+    </a>
+    <ul class="navbar-nav" role="list">
+      <li class="nav-item"><a href="home.html" class="nav-link"><span>🏠</span><span>Home</span></a></li>
+      <li class="nav-item"><a href="interview.html" class="nav-link"><span>🎤</span><span>Interview</span></a></li>
+      <li class="nav-item"><a href="aptitude.html" class="nav-link"><span>🧮</span><span>Aptitude</span></a></li>
+      <li class="nav-item"><a href="analytics.html" class="nav-link"><span>📊</span><span>Analytics</span></a></li>
+    </ul>
+    <div class="navbar-actions">
+      <img src="https://ui-avatars.com/api/?name=User&background=61210F&color=FDF0D5&bold=true" alt="User avatar"
+        class="avatar" id="user-avatar" />
+    </div>
+  </nav>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar" id="sidebar" role="complementary" aria-label="Sidebar navigation">
+    <ul class="sidebar-menu" role="list">
+      <li class="sidebar-item"><a href="home.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🏠</span><span>Home</span></a></li>
+      <li class="sidebar-item"><a href="interview.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🎤</span><span>Interview</span></a></li>
+      <li class="sidebar-item"><a href="aptitude.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🧮</span><span>Aptitude Tests</span></a></li>
+      <li class="sidebar-item"><a href="analytics.html" class="sidebar-link"><span
+            class="sidebar-link-icon">📊</span><span>Analytics</span></a></li>
+      <li class="sidebar-item"><a href="profile.html" class="sidebar-link active" aria-current="page"><span
+            class="sidebar-link-icon">👤</span><span>Profile</span></a></li>
+      <li class="sidebar-item"><a href="settings.html" class="sidebar-link"><span
+            class="sidebar-link-icon">⚙️</span><span>Settings</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- ── Main Content ── -->
+  <main class="main-content" role="main">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">Your Profile</h1>
+        <p class="page-subtitle">Manage your personal information and professional preferences</p>
+      </div>
+
+      <div class="profile-layout">
+        <!-- Profile Card -->
+        <div class="profile-card-section">
+          <div class="profile-card card static">
+            <div class="profile-header">
+              <div class="avatar-container">
+                <img src="https://ui-avatars.com/api/?name=User&size=120&background=61210F&color=FDF0D5&bold=true"
+                  alt="Profile avatar" class="profile-avatar" id="profile-avatar" />
+                <button class="avatar-edit-btn" id="avatar-edit-btn" aria-label="Change profile photo">📷</button>
+                <input type="file" id="avatar-upload" accept="image/*" style="display: none;" />
+              </div>
+              <h2 class="profile-name" id="profile-name">Your Name</h2>
+              <p class="profile-role" id="profile-role">Your Role</p>
+            </div>
+
+            <div class="profile-stats">
+              <div class="stat-item">
+                <div class="stat-value" id="profile-score">—</div>
+                <div class="stat-label">Composite Score</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value" id="profile-interviews">0</div>
+                <div class="stat-label">Interviews</div>
+              </div>
+            </div>
+
+            <div class="profile-badges">
+              <h3 class="badges-title">Achievements</h3>
+              <div class="badges-list" id="badges-list">
+                <span class="badge badge-primary">🏆 Consistent</span>
+                <span class="badge badge-primary">⭐ Top Performer</span>
+                <span class="badge badge-primary">🚀 Fast Learner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Form -->
+        <div class="profile-form-section">
+          <form id="profile-form" class="profile-form card static" novalidate>
+            <h2 class="form-section-title">Personal Information</h2>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="full-name" class="form-label">Full Name <span class="required">*</span></label>
+                <input type="text" id="full-name" name="full_name" class="form-input" placeholder="Your full name"
+                  required />
+              </div>
+              <div class="form-group">
+                <label for="email" class="form-label">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" id="phone" name="phone" class="form-input" placeholder="+91 98765 43210" />
+              </div>
+              <div class="form-group">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" id="location" name="location" class="form-input" placeholder="City, Country" />
+              </div>
+            </div>
+
+            <h2 class="form-section-title" style="margin-top: var(--spacing-lg);">Professional Information</h2>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="role" class="form-label">Current Role <span class="required">*</span></label>
+                <input type="text" id="role" name="role" class="form-input" placeholder="e.g., Software Engineer"
+                  required />
+              </div>
+              <div class="form-group">
+                <label for="experience" class="form-label">Years of Experience <span class="required">*</span></label>
+                <select id="experience" name="experience" class="form-select" required>
+                  <option value="">Select...</option>
+                  <option value="0-1">0–1 years</option>
+                  <option value="2-3">2–3 years</option>
+                  <option value="4-5">4–5 years</option>
+                  <option value="6-10">6–10 years</option>
+                  <option value="10+">10+ years</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="languages-input" class="form-label">Primary Programming Languages <span
+                  class="required">*</span></label>
+              <div class="tag-input-container">
+                <input type="text" id="languages-input" class="form-input" placeholder="Type and press Enter" />
+                <div id="languages-tags" class="tags-container" role="list" aria-label="Selected languages"></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="target-roles-input" class="form-label">Target Roles</label>
+              <div class="tag-input-container">
+                <input type="text" id="target-roles-input" class="form-input"
+                  placeholder="e.g., Senior Developer, Tech Lead" />
+                <div id="target-roles-tags" class="tags-container" role="list" aria-label="Target roles"></div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">
+                <span>💾</span><span>Save Profile</span>
+              </button>
+              <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-action-bar" role="navigation" aria-label="Mobile navigation">
+    <a href="home.html" class="bottom-action-btn"><span>🏠</span><span>Home</span></a>
+    <a href="interview.html" class="bottom-action-btn"><span>🎤</span><span>Interview</span></a>
+    <a href="aptitude.html" class="bottom-action-btn"><span>🧮</span><span>Aptitude</span></a>
+    <a href="analytics.html" class="bottom-action-btn"><span>📊</span><span>Analytics</span></a>
+  </nav>
+
+  <script src="../assets/js/navigation.js"></script>
+  <script src="../assets/js/profile.js"></script>
+</body>
+
+</html>
