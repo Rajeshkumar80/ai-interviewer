@@ -5,7 +5,8 @@
 
 class HomePage {
   constructor() {
-    this.apiBaseUrl = 'http://localhost:5000/api';
+    const API_BASE = "https://ai-interviewer-tv4u.onrender.com";
+    this.apiBaseUrl = `${API_BASE}/api`;
     this.init();
   }
 

@@ -1,6 +1,7 @@
 class AnalyticsManager {
   constructor() {
-    this.apiBaseUrl = "http://localhost:5000/api/analytics";
+    const API_BASE = "https://ai-interviewer-tv4u.onrender.com";
+    this.apiBaseUrl = `${API_BASE}/api/analytics`;
     this.charts = {};
     this.init();
   }
@@ -405,24 +406,22 @@ class AnalyticsManager {
           <div class="plan-description">
             Avg Score: ${area.avg_score}% (${area.question_count} questions)
             <div class="plan-goal">Goal: reach 80%+ in this topic</div>
-            ${
-              area.key_points && area.key_points.length
-                ? `<ul style="margin-top:5px;padding-left:20px;">
+            ${area.key_points && area.key_points.length
+            ? `<ul style="margin-top:5px;padding-left:20px;">
                     ${area.key_points
-                      .map((p) => `<li>${p}</li>`)
-                      .join("")}
+              .map((p) => `<li>${p}</li>`)
+              .join("")}
                   </ul>`
-                : ""
-            }
-            ${
-              area.suggested_actions && area.suggested_actions.length
-                ? `<ul style="margin-top:5px;padding-left:20px;">
+            : ""
+          }
+            ${area.suggested_actions && area.suggested_actions.length
+            ? `<ul style="margin-top:5px;padding-left:20px;">
                     ${area.suggested_actions
-                      .map((act) => `<li>${act}</li>`)
-                      .join("")}
+              .map((act) => `<li>${act}</li>`)
+              .join("")}
                   </ul>`
-                : ""
-            }
+            : ""
+          }
           </div>
         </div>
       </div>

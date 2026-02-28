@@ -5,7 +5,8 @@
 
 class ProfileManager {
   constructor() {
-    this.apiBaseUrl = 'http://localhost:5000/api';
+    const API_BASE = "https://ai-interviewer-tv4u.onrender.com";
+    this.apiBaseUrl = `${API_BASE}/api`;
     this.init();
   }
 
@@ -18,7 +19,7 @@ class ProfileManager {
     // Avatar upload
     const avatarEditBtn = document.getElementById('avatar-edit-btn');
     const avatarUpload = document.getElementById('avatar-upload');
-    
+
     if (avatarEditBtn && avatarUpload) {
       avatarEditBtn.addEventListener('click', () => avatarUpload.click());
       avatarUpload.addEventListener('change', (e) => this.handleAvatarUpload(e));
@@ -44,7 +45,7 @@ class ProfileManager {
   setupTagInput(inputId, containerId) {
     const input = document.getElementById(inputId);
     const container = document.getElementById(containerId);
-    
+
     if (!input || !container) return;
 
     input.addEventListener('keypress', (e) => {
@@ -63,7 +64,7 @@ class ProfileManager {
       <span>${text}</span>
       <span class="tag-remove" data-tag="${text}">×</span>
     `;
-    
+
     tag.querySelector('.tag-remove').addEventListener('click', () => tag.remove());
     container.appendChild(tag);
   }

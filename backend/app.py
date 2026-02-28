@@ -47,26 +47,8 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = 3600  # 1 hour
 
 jwt = JWTManager(app)
 
-# CORS — allow API access from dev tools / Live Server etc.
-# The main frontend (served by Flask on :5000) is same-origin, no CORS needed.
-CORS(
-    app,
-    resources={
-        r"/api/*": {
-            "origins": [
-                "http://localhost:5000",
-                "http://127.0.0.1:5000",
-                "http://localhost:5500",   # VS Code Live Server
-                "http://127.0.0.1:5500",
-                "http://localhost:8000",
-                "null",                    # file:// protocol
-            ],
-            "allow_headers": ["Content-Type", "Authorization"],
-            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-            "supports_credentials": True,
-        }
-    },
-)
+# CORS — allow API access from anywhere
+CORS(app)
 
 # ------------------------------
 # Mongo setup

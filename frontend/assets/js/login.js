@@ -4,10 +4,10 @@
  * Frontend is served by Flask on port 5000 — same origin, no CORS.
  */
 
-// Use relative URL so it works regardless of which port/domain serves the frontend
-var BACKEND = (window.location.origin.indexOf("localhost") !== -1 || window.location.origin.indexOf("127.0.0.1") !== -1)
-  ? "http://localhost:5000/api"  // local dev
-  : "/api";                      // same-origin (Flask serving both)
+// Use absolute URL for Render production deployment
+const API_BASE = "https://ai-interviewer-tv4u.onrender.com";
+var BACKEND = `${API_BASE}/api`;
+
 var DEMO_EMAIL = "demo@aiinterviewer.com";
 var DEMO_PASSWORD = "Demo1234!";
 
