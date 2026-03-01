@@ -829,7 +829,7 @@ def compute_overall_breakdown(answers: List[Dict[str, Any]]) -> Dict[str, Any]:
 
 
 @app.route("/api/interview/start", methods=["POST"])
-@jwt_required(optional=True)
+@jwt_required()
 def start_interview():
     data = request.get_json() or {}
     role = data.get("role", "Software Engineer")
@@ -839,16 +839,11 @@ def start_interview():
     if not questions:
         return jsonify({"status": "error", "message": "No questions available"}), 400
 
-    try:
-        current_email = get_jwt_identity()
-    except:
-        current_email = None
-    
+    current_email = get_jwt_identity()
     user_id = None
-    if current_email:
-        user_doc = db.users.find_one({"email": current_email}, {"_id": 1})
-        if user_doc:
-            user_id = str(user_doc["_id"])
+    user_doc = db.users.find_one({"email": current_email}, {"_id": 1})
+    if user_doc:
+        user_id = str(user_doc["_id"])
 
     interview_doc = {
         "role": role,
@@ -876,13 +871,15 @@ def start_interview():
 
 
 @app.route("/api/interview/<session_id>/answer", methods=["POST"])
+@jwt_required()
 def submit_answer(session_id):
+    current_email = get_jwt_identity()
     try:
         oid = ObjectId(session_id)
     except Exception:
         return jsonify({"status": "error", "message": "Invalid session id"}), 400
 
-    interview = db.interviews.find_one({"_id": oid})
+    interview = db.interviews.find_one({"_id": oid, "user_email": current_email})
     if not interview:
         return jsonify({"status": "error", "message": "Interview not found"}), 404
 
@@ -955,13 +952,15 @@ def submit_answer(session_id):
 
 
 @app.route("/api/interview/<session_id>/results", methods=["GET"])
+@jwt_required()
 def get_results(session_id):
+    current_email = get_jwt_identity()
     try:
         oid = ObjectId(session_id)
     except Exception:
         return jsonify({"status": "error", "message": "Invalid session id"}), 400
 
-    interview = db.interviews.find_one({"_id": oid})
+    interview = db.interviews.find_one({"_id": oid, "user_email": current_email})
     if not interview:
         return jsonify({"status": "error", "message": "Interview not found"}), 404
 
@@ -1034,35 +1033,17 @@ def get_results(session_id):
 # ------------------------------
 
 
-@app.route("/api/analytics/store", methods=["POST"])
-def store_attempt():
-    data = request.get_json() or {}
-    attempt = {
-        "score": data.get("score", 0),
-        "correct": data.get("correct", 0),
-        "total": data.get("total", 0),
-        "difficulty": data.get("difficulty", "medium"),
-        "time_spent": data.get("time_spent", 0),
-        "question_times": data.get("question_times", []),
-        "topics": data.get("topics", []),
-        "strengths": data.get("strengths", []),
-        "weaknesses": data.get("weaknesses", []),
-        "created_at": datetime.utcnow(),
-    }
-    db.attempts.insert_one(attempt)
-    return jsonify({"status": "success", "message": "Attempt stored"}), 201
+
 
 
 @app.route("/api/analytics/overview", methods=["GET"])
-@jwt_required(optional=True)
+@jwt_required()
 def analytics_overview():
     """Aggregate analytics from the interviews collection (source of truth)."""
     current_email = get_jwt_identity()
 
-    # Build query — if authenticated, show user data; otherwise show all demo data
-    query = {"status": "completed"}
-    if current_email:
-        query["user_email"] = current_email
+    # Build query — strictly user data
+    query = {"status": "completed", "user_email": current_email}
 
     interviews = list(db.interviews.find(query).sort("started_at", -1))
 
@@ -1197,30 +1178,14 @@ def debug_mongodb():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
 
-@app.route("/api/internal/seed", methods=["GET"])
-def trigger_seed():
-    import os
-    file_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "seed_analytics.py")
-    with open(file_path, "r", encoding="utf-8") as f:
-        code = f.read()
-    exec_globals = {"__file__": file_path, "__name__": "__main__"}
-    exec(code, exec_globals)
-    return jsonify({"status": "seeded_inline"})
-
-
 @app.route("/api/analytics/weak-areas", methods=["GET"])
+@jwt_required()
 def weak_areas():
     """Identify weak areas based on category performance."""
-    # Look at ALL attempts (or last N)
-    attempts = list(db.attempts.find({}))
+    current_email = get_jwt_identity()
 
-    # Aggregate by category (topic)
-    # structure: category -> {total_score: 0, count: 0, questions: []}
-    cat_stats = {}
-
-    # Better approach: Query interviews collection for granular answer data
-    # Find completed interviews
-    interviews = db.interviews.find({"status": "completed"})
+    # Query interviews collection for granular answer data
+    interviews = db.interviews.find({"status": "completed", "user_email": current_email})
     
     category_map = {}  # cat -> {score_sum: 0, count: 0}
 
@@ -1264,13 +1229,11 @@ def weak_areas():
 
 
 @app.route("/api/analytics/attempts", methods=["GET"])
-@jwt_required(optional=True)
+@jwt_required()
 def get_attempts():
     """Get list of recent completed interviews with summary scores."""
     current_email = get_jwt_identity()
-    query = {"status": "completed"}
-    if current_email:
-        query["user_email"] = current_email
+    query = {"status": "completed", "user_email": current_email}
 
     # Sort by most recent first
     cursor = db.interviews.find(query).sort("started_at", -1).limit(20)

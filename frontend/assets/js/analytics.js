@@ -17,9 +17,15 @@ class AnalyticsManager {
 
   async loadAnalyticsData() {
     try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const headers = { 'Authorization': `Bearer ${token}` };
+
       // Overview: aggregate stats & charts
       const overviewRes = await fetch(
-        this.apiBaseUrl.replace("/analytics", "/analytics/overview")
+        this.apiBaseUrl.replace("/analytics", "/analytics/overview"),
+        { headers }
       );
       const overviewJson = await overviewRes.json();
       const overview = overviewJson.overview || {};
@@ -40,12 +46,12 @@ class AnalyticsManager {
       const weaknesses = overview.weaknesses || [];
 
       // Recent attempts list
-      const attemptsRes = await fetch(`${this.apiBaseUrl}/attempts`);
+      const attemptsRes = await fetch(`${this.apiBaseUrl}/attempts`, { headers });
       const attemptsData = await attemptsRes.json();
       const attemptsList = attemptsData.attempts || [];
 
       // Weak areas / personalized learning plan
-      const weakAreasRes = await fetch(`${this.apiBaseUrl}/weak-areas`);
+      const weakAreasRes = await fetch(`${this.apiBaseUrl}/weak-areas`, { headers });
       const weakAreasData = await weakAreasRes.json();
       const weakAreas = weakAreasData.weak_areas || [];
 
@@ -298,7 +304,9 @@ class AnalyticsManager {
 
   async showAttemptDetails(sessionId) {
     try {
-      const res = await fetch(`${this.apiBaseUrl.replace('/analytics', '/interview')}/${sessionId}/results`);
+      const token = localStorage.getItem('token');
+      const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+      const res = await fetch(`${this.apiBaseUrl.replace('/analytics', '/interview')}/${sessionId}/results`, { headers });
       if (!res.ok) throw new Error("Failed to load details");
       const data = await res.json();
       const answers = data.answers || [];

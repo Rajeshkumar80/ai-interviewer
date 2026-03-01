@@ -29,13 +29,23 @@ class HomePage {
 
   async loadUserStats() {
     try {
-      // In a real app, this would fetch from the API
-      // For now, we'll use mock data
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const res = await fetch(`${this.apiBaseUrl}/analytics/overview`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (!res.ok) throw new Error("Failed to load stats");
+      const data = await res.json();
+      const overview = data.overview || {};
+
       const stats = {
-        totalInterviews: 12,
-        avgScore: 78,
-        streakDays: 5,
-        topicsMastered: 8
+        totalInterviews: overview.totalAttempts || 0,
+        avgScore: Math.round(overview.avgScore || 0),
+        streakDays: 0,
+        topicsMastered: overview.topicsMastered || 0
       };
 
       // Animate numbers
