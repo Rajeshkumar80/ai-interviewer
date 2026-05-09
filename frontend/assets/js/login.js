@@ -12,17 +12,12 @@ var DEMO_EMAIL = "demo@aiinterviewer.com";
 var DEMO_PASSWORD = "Demo1234!";
 
 // ── GOOGLE SIGN-IN CLIENT ID ──────────────────────────────
-// Replace this with your real Client ID from Google Cloud Console
-// https://console.cloud.google.com/apis/credentials
 var GOOGLE_CLIENT_ID = "301319569638-a3js1ae9pkuov0nuvsaasut2ppd4dq18.apps.googleusercontent.com";
 
 /* ─────────────────────────────────────────────────────────
    Google Identity Services — credential callback
-   Called automatically by the GSI library after the user
-   selects their Google account.
 ───────────────────────────────────────────────────────── */
 function handleGoogleCredentialResponse(response) {
-  // Decode the JWT payload (header.payload.sig — no crypto needed for display)
   var parts = (response.credential || "").split(".");
   var userInfo = {};
   try {
@@ -64,15 +59,12 @@ function handleGoogleCredentialResponse(response) {
 }
 
 /* ─────────────────────────────────────────────────────────
-   Wire up the custom Google button once DOM is ready.
-   The real g_id_onload div handles One-Tap; this button
-   acts as a visible fallback trigger.
+   Wire up the custom Google button
 ───────────────────────────────────────────────────────── */
 function initGoogleButton() {
   var btn = document.getElementById("google-signin-btn");
   if (!btn) return;
 
-  // Only initialize if the GSI library loaded and a real Client ID is set
   if (GOOGLE_CLIENT_ID === "YOUR_CLIENT_ID") {
     btn.title = "Add your Google Client ID to enable this button.";
     btn.style.opacity = "0.5";
@@ -91,18 +83,16 @@ function initGoogleButton() {
       window.google.accounts.id.prompt();
     });
   } else {
-    // Library not loaded yet — try again after a short wait
     setTimeout(initGoogleButton, 500);
   }
 }
 
-
 /* ── Utility: show a message to the user ────────────────── */
 function showMsg(text, type) {
-  var el = document.getElementById("login-message");
-  if (!el) { console.error("login-message element not found!"); return; }
+  var el = document.getElementById("login-message") || document.getElementById("register-message");
+  if (!el) { console.error("message element not found!"); return; }
   el.textContent = text;
-  el.className = type || ""; // "error" | "success" | "info"
+  el.className = type || "";
   el.style.display = text ? "block" : "none";
 }
 
@@ -114,7 +104,7 @@ function setBtnLoading(btnId, loading, defaultText) {
   btn.textContent = loading ? "Please wait…" : defaultText;
 }
 
-/* ── Fetch with manual timeout (no AbortSignal.timeout) ── */
+/* ── Fetch with manual timeout ───────────────────────────── */
 function fetchWithTimeout(url, opts, ms) {
   return new Promise(function (resolve, reject) {
     var timer = setTimeout(function () {
@@ -196,7 +186,7 @@ function apiRegister(name, email, password, onSuccess, onError) {
       }
     });
   }).catch(function (err) {
-    onError("Cannot reach the server. Make sure the backend is running (START.bat), then try again.");
+    onError("Cannot reach the server. Make sure the backend is running, then try again.");
   });
 }
 
@@ -216,74 +206,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var loginForm = document.getElementById("email-login-form");
   var registerForm = document.getElementById("register-form");
-  var toggleLogin = document.getElementById("auth-toggle-login");
-  var toggleRegister = document.getElementById("auth-toggle-register");
-  var fillDemoBtn = document.getElementById("fill-demo-btn");
+  var loginView = document.getElementById("login-view");
+  var registerView = document.getElementById("register-view");
+  var showRegisterLink = document.getElementById("show-register-link");
+  var showLoginLink = document.getElementById("show-login-link");
 
-  /* Make sure message is hidden at start */
-  showMsg("", "");
-
-  /* ── Tab switcher ────── */
-  if (toggleLogin) {
-    toggleLogin.addEventListener("click", function () {
-      toggleLogin.classList.add("active");
-      toggleLogin.setAttribute("aria-selected", "true");
-      if (toggleRegister) { toggleRegister.classList.remove("active"); toggleRegister.setAttribute("aria-selected", "false"); }
-      if (loginForm) loginForm.classList.remove("hidden");
-      if (registerForm) registerForm.classList.add("hidden");
-      showMsg("", "");
+  /* ── View switcher ────── */
+  if (showRegisterLink) {
+    showRegisterLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      if (loginView) loginView.classList.add("hidden");
+      if (registerView) registerView.classList.remove("hidden");
     });
   }
 
-  if (toggleRegister) {
-    toggleRegister.addEventListener("click", function () {
-      toggleRegister.classList.add("active");
-      toggleRegister.setAttribute("aria-selected", "true");
-      if (toggleLogin) { toggleLogin.classList.remove("active"); toggleLogin.setAttribute("aria-selected", "false"); }
-      if (registerForm) registerForm.classList.remove("hidden");
-      if (loginForm) loginForm.classList.add("hidden");
-      showMsg("", "");
-    });
-  }
-
-  /* ── Fill demo credentials ────── */
-  if (fillDemoBtn) {
-    fillDemoBtn.addEventListener("click", function () {
-      var emailEl = document.getElementById("login-email");
-      var passEl = document.getElementById("login-password");
-      if (emailEl) emailEl.value = DEMO_EMAIL;
-      if (passEl) passEl.value = DEMO_PASSWORD;
-      showMsg("Demo credentials filled. Click Sign In.", "info");
+  if (showLoginLink) {
+    showLoginLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      if (registerView) registerView.classList.add("hidden");
+      if (loginView) loginView.classList.remove("hidden");
     });
   }
 
   /* ── LOGIN FORM ────── */
   if (loginForm) {
-    console.log("[login.js] login form found, attaching submit handler");
-
     loginForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      console.log("[login.js] login form submitted");
 
       var email = (document.getElementById("login-email")?.value || "").trim().toLowerCase();
       var password = (document.getElementById("login-password")?.value || "");
 
-      /* Client-side validation */
       if (!email) { showMsg("Please enter your email address.", "error"); return; }
       if (!password) { showMsg("Please enter your password.", "error"); return; }
 
       showMsg("Signing in…", "info");
-      setBtnLoading("login-submit-btn", true, "Sign In →");
+      setBtnLoading("login-submit-btn", true, "Login");
 
       apiLogin(email, password,
-        /* success */ function (data) {
+        function (data) {
           localStorage.removeItem("demo_mode");
           saveSession(data.access_token, data.user);
           showMsg("Login successful! Redirecting…", "success");
           setTimeout(function () { window.location.href = "home.html"; }, 600);
         },
-        /* error */ function (errMsg) {
-          setBtnLoading("login-submit-btn", false, "Sign In →");
+        function (errMsg) {
+          setBtnLoading("login-submit-btn", false, "Login");
           if (errMsg === "NETWORK") {
             if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
               showMsg("Backend is offline — logging in as Demo (limited mode).", "info");
@@ -291,8 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
               setTimeout(function () { window.location.href = "home.html"; }, 1200);
             } else {
               showMsg(
-                "Cannot reach the server. Please run START.bat to start the backend. " +
-                "You can also use the demo account: demo@aiinterviewer.com / Demo1234!",
+                "Cannot reach the server. Please ensure the backend is running.",
                 "error"
               );
             }
@@ -302,48 +268,40 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       );
     });
-  } else {
-    console.error("[login.js] ERROR: #email-login-form not found in DOM!");
   }
 
   /* ── REGISTER FORM ────── */
   if (registerForm) {
-    console.log("[login.js] register form found, attaching submit handler");
-
     registerForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      console.log("[login.js] register form submitted");
 
       var name = (document.getElementById("register-name")?.value || "").trim();
       var email = (document.getElementById("register-email")?.value || "").trim().toLowerCase();
       var password = (document.getElementById("register-password")?.value || "");
       var confirm = (document.getElementById("register-password-confirm")?.value || "");
 
-      /* Client-side validation */
       if (!name) { showMsg("Please enter your full name.", "error"); return; }
       if (!email) { showMsg("Please enter your email address.", "error"); return; }
       if (!password) { showMsg("Please enter a password.", "error"); return; }
       if (password.length < 8) { showMsg("Password must be at least 8 characters long.", "error"); return; }
-      if (password !== confirm) { showMsg("Passwords do not match. Please re-enter.", "error"); return; }
+      if (password !== confirm) { showMsg("Passwords do not match.", "error"); return; }
 
       showMsg("Creating your account…", "info");
-      setBtnLoading("register-submit-btn", true, "Create Account →");
+      setBtnLoading("register-submit-btn", true, "Create Account");
 
       apiRegister(name, email, password,
-        /* success */ function (data) {
+        function (data) {
           localStorage.removeItem("demo_mode");
           saveSession(data.access_token, data.user);
           showMsg("Account created! Redirecting…", "success");
           setTimeout(function () { window.location.href = "home.html"; }, 600);
         },
-        /* error */ function (errMsg) {
-          setBtnLoading("register-submit-btn", false, "Create Account →");
+        function (errMsg) {
+          setBtnLoading("register-submit-btn", false, "Create Account");
           showMsg(errMsg, "error");
         }
       );
     });
-  } else {
-    console.error("[login.js] ERROR: #register-form not found in DOM!");
   }
 
-}); // end DOMContentLoaded
+});

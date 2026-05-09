@@ -1,0 +1,20 @@
+/* ============================================
+   FEEDBACK PAGE — Clean Minimal White
+   ============================================ */
+
+.feedback-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.feedback-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
