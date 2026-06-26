@@ -115,8 +115,7 @@ class HomePage {
   }
 
   showHelp() {
-    // Show help modal or tooltip
-    alert('Welcome to AI Interviewer! Click on any section in the sidebar to get started. Use the theme toggle to customize your experience.');
+    window.location.href = 'about.html';
   }
 }
 

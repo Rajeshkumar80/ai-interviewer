@@ -18,7 +18,7 @@ body {
   justify-content: center;
 }
 
-/* ── Page Layout ──────────────────────────── */
+/* ── Page Layout & Split Screen ───────────── */
 .login-page {
   width: 100%;
   min-height: 100vh;
@@ -26,9 +26,149 @@ body {
   flex-direction: column;
 }
 
+.split-container {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.left-pane {
+  flex: 1;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.right-pane {
+  flex: 1;
+  max-width: 50%;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Accent glow background */
+.right-pane::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.project-brief-content {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  z-index: 2;
+  animation: fadeIn 0.8s ease-out both;
+}
+
+.brief-badge {
+  align-self: flex-start;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #cbd5e1;
+  backdrop-filter: blur(4px);
+}
+
+.brief-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+.brief-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #94a3b8;
+}
+
+.feature-brief-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.feature-brief-card {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.feature-brief-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.feature-brief-icon {
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.feature-brief-info h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.feature-brief-info p {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: #94a3b8;
+}
+
+.brief-footer {
+  margin-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 16px;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* ── Header ───────────────────────────────── */
 .login-header {
-  padding: 24px 32px;
+  padding: 32px 40px 16px;
 }
 
 .brand {
@@ -59,7 +199,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 24px 60px;
+  padding: 0 40px 60px;
 }
 
 .login-card {
@@ -314,9 +454,23 @@ body {
 }
 
 /* ── Responsive ───────────────────────────── */
+@media (max-width: 1024px) {
+  .split-container {
+    flex-direction: column;
+  }
+  .left-pane {
+    max-width: 100%;
+    width: 100%;
+    min-height: 100vh;
+  }
+  .right-pane {
+    display: none !important;
+  }
+}
+
 @media (max-width: 480px) {
   .login-header {
-    padding: 20px 20px;
+    padding: 24px 20px 10px;
   }
 
   .login-main {

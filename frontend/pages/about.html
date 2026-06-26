@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About & Help | AI Interviewer</title>
+  <meta name="description"
+    content="Learn more about the AI Interviewer platform, how to use it, and get in touch with the developer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/theme.css" />
+  <link rel="stylesheet" href="../assets/css/layout.css" />
+  <link rel="stylesheet" href="../assets/css/about.css" />
+</head>
+
+<body>
+
+  <!-- ── Top Navbar ── -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation" id="main-navbar">
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle sidebar"
+      aria-expanded="false">☰</button>
+    <a href="home.html" class="navbar-brand">
+      <div class="brand-icon">🎯</div>
+      <span>AI Interviewer</span>
+    </a>
+    <ul class="navbar-nav" role="list">
+      <li class="nav-item"><a href="home.html" class="nav-link"><span>🏠</span><span>Home</span></a></li>
+      <li class="nav-item"><a href="interview.html" class="nav-link"><span>🎤</span><span>Interview</span></a></li>
+      <li class="nav-item"><a href="aptitude.html" class="nav-link"><span>🧮</span><span>Aptitude</span></a></li>
+      <li class="nav-item"><a href="analytics.html" class="nav-link"><span>📊</span><span>Analytics</span></a></li>
+      <li class="nav-item"><a href="about.html" class="nav-link active" aria-current="page"><span>ℹ️</span><span>About & Help</span></a></li>
+    </ul>
+    <div class="navbar-actions">
+      <img src="https://ui-avatars.com/api/?name=User&background=61210F&color=FDF0D5&bold=true" alt="User avatar"
+        class="avatar" id="user-avatar" />
+    </div>
+  </nav>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar" id="sidebar" role="complementary" aria-label="Sidebar navigation">
+    <ul class="sidebar-menu" role="list">
+      <li class="sidebar-item"><a href="home.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🏠</span><span>Home</span></a></li>
+      <li class="sidebar-item"><a href="interview.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🎤</span><span>Interview</span></a></li>
+      <li class="sidebar-item"><a href="aptitude.html" class="sidebar-link"><span
+            class="sidebar-link-icon">🧮</span><span>Aptitude Tests</span></a></li>
+      <li class="sidebar-item"><a href="analytics.html" class="sidebar-link"><span
+            class="sidebar-link-icon">📊</span><span>Analytics</span></a></li>
+      <li class="sidebar-item"><a href="profile.html" class="sidebar-link"><span
+            class="sidebar-link-icon">👤</span><span>Profile</span></a></li>
+      <li class="sidebar-item"><a href="settings.html" class="sidebar-link"><span
+            class="sidebar-link-icon">⚙️</span><span>Settings</span></a></li>
+      <li class="sidebar-item"><a href="about.html" class="sidebar-link active" aria-current="page"><span
+            class="sidebar-link-icon">ℹ️</span><span>About & Help</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- ── Main Content ── -->
+  <main class="main-content" role="main">
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="page-title">About & Help</h1>
+        <p class="page-subtitle">Understand how AI Interviewer works, its workflow, and connect with the creator.</p>
+      </div>
+
+      <div class="about-grid">
+
+        <!-- Detailed Description Section -->
+        <section class="about-section card static" aria-labelledby="desc-title">
+          <h2 id="desc-title">🎯 Detailed Description</h2>
+          <div class="about-text">
+            <p>
+              <strong>AI Interviewer</strong> is an intelligent, mock interview preparation platform designed to help students and professionals ace their recruitment assessments. In today's competitive job market, preparation is key. This platform simulates a real-life coding and voice-based interviewing environment, reducing nervousness and strengthening response delivery.
+            </p>
+            <p>
+              By leveraging advanced AI capability (via Gemini API models), the platform asks targeted technical, coding, and behavioral questions tailored to your experience. Your spoken answers are captured, and the code is evaluated dynamically. In addition, timed analytical tests help you prepare for preliminary rounds.
+            </p>
+          </div>
+        </section>
+
+        <!-- Workflow / How To Use Section -->
+        <section class="about-section card static" aria-labelledby="workflow-title">
+          <h2 id="workflow-title">⚙️ How to Use (Platform Workflow)</h2>
+          <div class="workflow-timeline">
+            
+            <div class="timeline-step">
+              <h3>1. Configure Settings & Audio Devices</h3>
+              <p>Navigate to the <strong>Settings</strong> page to select your microphone. Adjust input levels and check volume parameters to ensure your voice response captures smoothly.</p>
+            </div>
+
+            <div class="timeline-step">
+              <h3>2. Choose Your Focus Area</h3>
+              <p>Select either <strong>Interview</strong> for specialized speech & coding practice, or <strong>Aptitude Tests</strong> for speed-based multiple-choice quizzes.</p>
+            </div>
+
+            <div class="timeline-step">
+              <h3>3. Conduct the Assessment</h3>
+              <p>For coding interviews, write your solution directly in the integrated IDE. For speech questions, toggle the recording, state your answer aloud, and hit submit. The AI will evaluate your answers instantly.</p>
+            </div>
+
+            <div class="timeline-step">
+              <h3>4. Review Performance & Feedback</h3>
+              <p>Check the <strong>Analytics</strong> dashboard to view comprehensive report cards. Track your scores, response times, and topic mastery metrics over time.</p>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Q&A (FAQ) Section -->
+        <section class="about-section card static" aria-labelledby="faq-title">
+          <h2 id="faq-title">❓ Questions & Answers (FAQ)</h2>
+          <div class="faq-list">
+            
+            <div class="faq-item">
+              <div class="faq-question">Do I need to enable my microphone?</div>
+              <div class="faq-answer">Yes. Voice mock interviews require microphone access to capture and record your spoken answers, allowing the AI engine to evaluate your vocabulary, coherence, and technical clarity.</div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">How are coding questions evaluated?</div>
+              <div class="faq-answer">The coding workspace includes a full-featured Monaco Code Editor. Once you complete your code, it executes on our secure runtime environment against multiple predefined test cases to verify logic correctness and edge-cases.</div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">What is "Offline Demo Mode"?</div>
+              <div class="faq-answer">If the platform backend server cannot be reached, the system falls back to a mock demo mode. This allows you to inspect the UI and workflow screens with offline data. Starting the local backend via SETUP/START scripts activates the full AI evaluation pipeline.</div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">Are my assessments kept private?</div>
+              <div class="faq-answer">All mock data is securely stored inside your local profile database. We respect user privacy; only your account credentials and metrics are saved to evaluate your analytical trends.</div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section class="about-section card static" aria-labelledby="aboutme-title">
+          <h2 id="aboutme-title">👨‍💻 About Me (Developer)</h2>
+          <div class="developer-profile">
+            <div class="dev-avatar">R</div>
+            <div class="dev-info">
+              <div class="dev-name">Rajesh</div>
+              <div class="dev-role">Full-Stack AI Developer & Creator</div>
+              <p class="about-text" style="margin-bottom: 16px;">
+                Hello! I am Rajesh, the engineer behind AI Interviewer. I build smart AI-driven applications to solve real-world productivity hurdles. If you have any suggestions, bug reports, or partnership proposals, feel free to connect with me!
+              </p>
+              <div class="dev-links">
+                <a href="https://www.linkedin.com/in/rajesh3005/" target="_blank" rel="noopener noreferrer" class="dev-link-btn">
+                  <span>🔗</span><span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/Rajeshkumar80" target="_blank" rel="noopener noreferrer" class="dev-link-btn">
+                  <span>💻</span><span>GitHub</span>
+                </a>
+                <a href="mailto:rajesh752791@gmail.com" class="dev-link-btn">
+                  <span>✉️</span><span>rajesh752791@gmail.com</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-action-bar" role="navigation" aria-label="Mobile navigation">
+    <a href="home.html" class="bottom-action-btn"><span>🏠</span><span>Home</span></a>
+    <a href="interview.html" class="bottom-action-btn"><span>🎤</span><span>Interview</span></a>
+    <a href="aptitude.html" class="bottom-action-btn"><span>🧮</span><span>Aptitude</span></a>
+    <a href="analytics.html" class="bottom-action-btn"><span>📊</span><span>Analytics</span></a>
+    <a href="about.html" class="bottom-action-btn active"><span>ℹ️</span><span>About</span></a>
+  </nav>
+
+  <script src="../assets/js/navigation.js"></script>
+</body>
+
+</html>
